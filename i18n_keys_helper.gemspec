@@ -6,10 +6,10 @@ require 'i18n_keys_helper/version'
 Gem::Specification.new do |spec|
   spec.name          = "i18n_keys_helper"
   spec.version       = I18nKeysHelper::VERSION
-  spec.authors       = ["Jean-Baptiste Bernard, Ruby Senior Developer"]
+  spec.authors       = ["Jean-Baptiste Bernard, Ruby Developer"]
   spec.email         = ["jeanbaptiste.bernard.wm@gmail.com"]
-  spec.summary       = %q{ Write a short summary. Required.}
-  spec.description   = %q{ Write a longer description. Optional.}
+  spec.summary       = %q{ i18n_keys_helper allow you to display translation keys directly on your browser}
+  spec.description   = %q{ just move your mouse on the specifique text, image ..., and a tooltip containing the translation key is showed}
   spec.homepage      = ""
   spec.license       = "MIT"
 
