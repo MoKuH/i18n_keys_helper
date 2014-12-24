@@ -4,6 +4,7 @@ require 'i18n'
 
 module TranslateHelper
   @show_key=false
+
   def self.set_show_key(x)
     @show_key = x
   end
@@ -26,7 +27,7 @@ module I18n
         if Rails.env.production?
           ''
         else
-          key  = CGI.escapeHTML titleize(keys.last)
+          key = CGI.escapeHTML titleize(keys.last)
           path = CGI.escapeHTML keys.join('.')
           %(<span class="translation_missing" title="translation missing: #{path}">#{key}</span>)
         end
@@ -35,6 +36,7 @@ module I18n
   end
 end
 module ActionView
+  # = Action View Translation Helpers
   module Helpers
     module TranslationHelper
       def translate(key, options = {})
@@ -47,6 +49,7 @@ module ActionView
             missing=true
           end
           if missing
+
             options.merge!(:rescue_format => :html) unless options.key?(:rescue_format)
             if html_safe_translation_key?(key)
               html_safe_options = options.dup
@@ -61,6 +64,7 @@ module ActionView
               I18n.translate(scope_key_by_partial(key), options)
             end
           else
+
             options.merge!(:rescue_format => :html) unless options.key?(:rescue_format)
             if html_safe_translation_key?(key)
               html_safe_options = options.dup
@@ -78,13 +82,11 @@ module ActionView
               else
                 scope=options[:scope]
               end
-              show_key=scope+key.to_s.gsub(/\./,'--')
-
-
+              show_key=scope+key.to_s.gsub(/\./, '--')
               if  is_trad_array? key
                 result=I18n.translate(scope_key_by_partial(key), options)
                 result_new=Array.new
-                result.each do | value|
+                result.each do |value|
                   if value.nil?
                     result_new.push nil
                   else
@@ -97,6 +99,29 @@ module ActionView
               end
             end
           end
+        end
+      end
+
+      alias :t :translate
+
+      private
+
+      def is_trad_array?(key)
+        translations = I18n.backend.send(:translations)
+        locale = @locale || I18n.config.locale
+        translations=translations[locale]
+
+        index=key.to_s.split('.')
+        index.each do |value|
+          translations=translations[value.to_sym]
+          if translations.nil?
+            break
+          end
+        end
+        if translations.is_a?(Array)
+          true
+        else
+          false
         end
       end
     end

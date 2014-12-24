@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-Add the helper method to add the js file
+Add the helper method to add the js file  in your layout file
 
 ```ruby
 = render_translate_js

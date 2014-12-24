@@ -1,3 +1,5 @@
 module I18nKeysHelper
-  class Engine < Rails::Engine; end
+  class Engine < Rails::Engine
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+  end
 end
