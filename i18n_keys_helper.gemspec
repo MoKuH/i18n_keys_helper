@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = I18nKeysHelper::VERSION
   spec.authors       = ["Jean-Baptiste Bernard, Ruby Developer"]
   spec.email         = ["jeanbaptiste.bernard.wm@gmail.com"]
-  spec.summary       = %q{ i18n_keys_helper allow you to display translation keys directly on your browser}
-  spec.description   = %q{ just move your mouse on the specifique text, image ..., and a tooltip containing the translation key is showed}
+  spec.summary       = %q{ i18n_keys_helper allows you to display translation keys directly on your browser}
+  spec.description   = %q{Move your mouse on the specifique text, image ..., and a tooltip containing the translation key is showed}
   spec.homepage      = ""
   spec.license       = "MIT"
 

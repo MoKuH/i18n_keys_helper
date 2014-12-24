@@ -1,6 +1,8 @@
 # i18n_keys_helper
 
-TODO: Write a gem description
+**i18n_keys_helper** allows you to display translation keys directly on your browser
+by moving your mouse on a specifique text, image ..., a tooltip containing the translation key will be showed
+
 
 ## Installation
 
@@ -21,12 +23,7 @@ Or install it yourself as:
 ## Usage
 
 Add the helper method to add the js file
-    $ = render_trad_js
 
-## Contributing
-
-1. Fork it ( https://github.com/MoKuH/i18n_keys_helper/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+```ruby
+= render_translate_js
+```
