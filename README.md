@@ -20,10 +20,21 @@ Or install it yourself as:
 
     $ gem install i18n_keys_helper
 
-## Usage
 
-Add the helper method to add the js file  in your layout file
+Call the helper method in your layout file , just after the body opening tag
 
 ```ruby
-= render_translate_js
+= render_translate
 ```
+
+Add the 2 following lines into your ApplicationController
+
+```ruby
+include I18nKeysHelper
+before_filter :set_show_translation_keys
+```
+
+## Usage
+
+The i18n_keys_helper is by default only disabled in production, you can easily change it.
+The i18n_keys_helper also have a fork on i18n, on production environment, an empty string is returned instead of the missing translation text,
