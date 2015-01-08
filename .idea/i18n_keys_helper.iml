@@ -14,7 +14,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
-      <library name="i18n_keys_helper (v0.1.0, /media/jean-baptiste/Ubuntu Workspace/Perso/i18n_keys_helper) [path][gem]">
+      <library name="i18n_keys_helper (v1.0.0, /media/jean-baptiste/Ubuntu Workspace/Perso/i18n_keys_helper) [path][gem]">
         <CLASSES>
           <root url="file://$MODULE_DIR$/app" />
           <root url="file://$MODULE_DIR$/lib" />
