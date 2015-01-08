@@ -56,7 +56,7 @@ module I18n
   extend(Module.new {
     def translate(key, options = {},show_key=true)
       translation=super(key, options)
-      if show_key  && TranslateHelper.is_ok(key,options)
+      if show_key  && TranslateHelper.is_ok(key,options) && !translation.is_a?(Hash)
         if options[:scope].nil?
           scope=''
         else
