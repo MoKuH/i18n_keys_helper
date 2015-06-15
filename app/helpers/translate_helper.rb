@@ -20,11 +20,11 @@ module TranslateHelper
     missing=false
     if TranslateHelper.is_env_acceptable? && TranslateHelper.get_show_keys
       raise I18n::ArgumentError if key.is_a?(String) && key.empty?
-      begin
-        I18n.translate!(key,options)
-      rescue I18n::MissingTranslationData
-        missing=true
-      end
+     # begin
+      #  I18n.translate!(key,options)
+     # rescue I18n::MissingTranslationData
+     #   missing=true
+     # end
     end
 
     TranslateHelper.is_env_acceptable? && TranslateHelper.get_show_keys && !missing
@@ -54,24 +54,25 @@ module I18n
   end
 
   extend(Module.new {
-    def translate(key, options = {},show_key=true)
-      translation=super(key, options)
-      if show_key  && TranslateHelper.is_ok(key,options) && !translation.is_a?(Hash)
-        if options[:scope].nil?
-          scope=''
-        else
-          scope=options[:scope]+"."
-        end
-        key=scope+key.to_s.gsub(/\./,'--')
-        translation="#{translation}|#{key}|".html_safe
-      end
-      translation
-    end
-    def translate!(key, options={},show_key=false)
-      I18n.translate(key, options.merge(:raise => true),show_key)
-    end
+           def translate(key, options = {},show_key=true)
+             translation=super(key, options)
+             if show_key && !translation.is_a?(Hash) && !translation.include?('translation_missing') && TranslateHelper.is_env_acceptable? && TranslateHelper.get_show_keys
+               if options[:scope].nil?
+                 scope=''
+               else
+                 scope=options[:scope]+"."
+               end
+               key=scope+key.to_s.gsub(/\./,'--')
+               translation="#{translation}|#{key}|".html_safe
 
-  })
+             end
+             translation
+           end
+           def translate!(key, options={},show_key=false)
+             I18n.translate(key, options.merge(:raise => true),show_key)
+           end
+
+         })
 end
 module ActionView
   # = Action View Translation Helpers
@@ -107,13 +108,19 @@ module ActionView
               result.each do | value|
                 if value.nil?
                   result_new.push nil
+                elsif value.is_a?(MissingTranslation)
+                  result_new.push value
                 else
                   result_new.push value+ "|#{show_key}|".html_safe
                 end
               end
               return result_new
             else
-              return I18n.translate(scope_key_by_partial(key), options,false)+ "|#{show_key}|".html_safe
+              translation = I18n.translate(scope_key_by_partial(key), options,false)
+              if !translation.include?('translation_missing')
+               translation = translation + "|#{show_key}|".html_safe
+              end
+              translation
             end
           end
 
@@ -161,3 +168,4 @@ module ActionView
     end
   end
 end
+
