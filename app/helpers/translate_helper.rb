@@ -63,7 +63,9 @@ module I18n
                  scope=options[:scope]+"."
                end
                key=scope+key.to_s.gsub(/\./,'--')
-               translation="#{translation}|#{key}|".html_safe
+               unless translation.is_a?(Array)
+                 translation="#{translation}|#{key}|".html_safe
+               end
 
              end
              translation
