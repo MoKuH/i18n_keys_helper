@@ -110,8 +110,6 @@ module ActionView
               result.each do | value|
                 if value.nil?
                   result_new.push nil
-                elsif value.is_a?(MissingTranslation)
-                  result_new.push value
                 else
                   result_new.push value+ "|#{show_key}|".html_safe
                 end
