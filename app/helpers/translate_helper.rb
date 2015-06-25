@@ -117,7 +117,7 @@ module ActionView
               return result_new
             else
               translation = I18n.translate(scope_key_by_partial(key), options,false)
-              if !translation.include?('translation_missing')
+              if !translation.include?('translation_missing') && !translation.is_a?(Array)
                translation = translation + "|#{show_key}|".html_safe
               end
               translation
