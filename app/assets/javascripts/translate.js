@@ -1,13 +1,14 @@
 $(document).ready(function () {
 
-    getTrad();
-    $(document).on('DOMNodeInserted', function(e) {
-        getTrad()  ;
-    });
-    $( document ).ajaxComplete(function() {
-        getTrad()
-    });
-
+    if(module_activated) {
+        getTrad();
+        $(document).on('DOMNodeInserted', function (e) {
+            getTrad();
+        });
+        $(document).ajaxComplete(function () {
+            getTrad()
+        });
+    }
 });
 
 $.fn.justtext = function() {
