@@ -1,0 +1,26 @@
+
+#toggle_show_key {
+    padding:10px;
+    z-index:100;
+    opacity=0.6;
+    width:100px;
+    height:100px;
+    position:fixed;
+    top:10%;
+    right:0;
+    background:#dedede;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;'
+
+}
+
+
+@media screen and (min-width:0px) and (max-width:800px) {
+    #toggle_show_key {
+        display: none;
+    }
+}
