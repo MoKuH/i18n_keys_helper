@@ -2,7 +2,7 @@
 #toggle_show_key {
     padding:10px;
     z-index:100;
-    opacity=0.6;
+    opacity:0.6;
     width:100px;
     height:100px;
     position:fixed;
