@@ -20,11 +20,11 @@ module TranslateHelper
     missing=false
     if TranslateHelper.is_env_acceptable? && TranslateHelper.get_show_keys
       raise I18n::ArgumentError if key.is_a?(String) && key.empty?
-     # begin
+      # begin
       #  I18n.translate!(key,options)
-     # rescue I18n::MissingTranslationData
-     #   missing=true
-     # end
+      # rescue I18n::MissingTranslationData
+      #   missing=true
+      # end
     end
 
     TranslateHelper.is_env_acceptable? && TranslateHelper.get_show_keys && !missing
@@ -53,28 +53,6 @@ module I18n
     end
   end
 
-  extend(Module.new {
-           def translate(key, options = {},show_key=true)
-             translation=super(key, options)
-             if show_key && !translation.is_a?(Hash) && !translation.include?('translation_missing') && TranslateHelper.is_env_acceptable? && TranslateHelper.get_show_keys
-               if options[:scope].nil?
-                 scope=''
-               else
-                 scope=options[:scope]+"."
-               end
-               key=scope+key.to_s.gsub(/\./,'--')
-               unless translation.is_a?(Array)
-                 translation="#{translation}|#{key}|".html_safe
-               end
-
-             end
-             translation
-           end
-           def translate!(key, options={},show_key=false)
-             I18n.translate(key, options.merge(:raise => true),show_key)
-           end
-
-         })
 end
 module ActionView
   # = Action View Translation Helpers
@@ -118,7 +96,7 @@ module ActionView
             else
               translation = I18n.translate(scope_key_by_partial(key), options,false)
               if !translation.include?('translation_missing') && !translation.is_a?(Array)
-               translation = translation + "|#{show_key}|".html_safe
+                translation = translation + "|#{show_key}|".html_safe
               end
               translation
             end
@@ -150,8 +128,11 @@ module ActionView
       def is_trad_array?(key)
         translations = I18n.backend.send(:translations)
         locale =  @locale || I18n.config.locale
-        translations=translations[locale]
-
+        translations_tmp=translations[locale.to_s]
+        if translations_tmp.nil?
+          translations_tmp=translations[locale.to_sym]
+        end
+        translations=translations_tmp
         index=key.to_s.split('.')
         index.each do | value|
           translations=translations[value.to_sym]
