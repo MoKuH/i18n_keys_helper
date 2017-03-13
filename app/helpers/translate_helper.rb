@@ -61,6 +61,7 @@ module ActionView
 
 
       def translate(key, options = {})
+
         if TranslateHelper.is_ok(key,options)
           options.merge!(:rescue_format => :html) unless options.key?(:rescue_format)
           if html_safe_translation_key?(key)
@@ -88,6 +89,8 @@ module ActionView
               result.each do | value|
                 if value.nil?
                   result_new.push nil
+                elsif value.is_a?(Array)
+                  result_new.push value.last+ "|#{show_key}|".html_safe
                 else
                   result_new.push value+ "|#{show_key}|".html_safe
                 end
@@ -103,21 +106,7 @@ module ActionView
           end
 
         else
-          options.merge!(:rescue_format => :html) unless options.key?(:rescue_format)
-          if html_safe_translation_key?(key)
-            html_safe_options = options.dup
-            options.except(*I18n::RESERVED_KEYS).each do |name, value|
-              unless name == :count && value.is_a?(Numeric)
-                html_safe_options[name] = ERB::Util.html_escape(value.to_s)
-              end
-            end
-
-            translation = I18n.translate(scope_key_by_partial(key), html_safe_options,false)
-
-            translation.respond_to?(:html_safe) ? translation.html_safe : translation
-          else
-            I18n.translate(scope_key_by_partial(key), options,false)
-          end
+          I18n.translate(key, options)
         end
       end
       alias :t :translate
@@ -140,7 +129,7 @@ module ActionView
             break
           end
         end
-        if translations.is_a?(Array)
+        if translations.is_a?(Array) ||  translations.is_a?(Hash)
           true
         else
           false
