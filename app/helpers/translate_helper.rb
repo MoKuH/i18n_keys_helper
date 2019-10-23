@@ -30,7 +30,7 @@ module ActionView
         translation=super(key, options.merge(raise: true))
         if  is_trad_array? key
           result=I18n.translate(scope_key_by_partial(key), options,false)
-          result_new=Array.new
+          result_new=Array.new 
           result.each do | value|
             if value.nil?
               result_new.push nil
@@ -67,7 +67,7 @@ module ActionView
             break
           end
         end
-        if translations.is_a?(Array)
+        if translations.is_a?(Array) ||  translations.is_a?(Hash)
           true
         else
           false
