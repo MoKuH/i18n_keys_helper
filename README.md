@@ -29,7 +29,7 @@ Add the 2 following lines into your ApplicationController
 
 ```ruby
 include I18nKeysHelper
-before_filter :set_show_translation_keys
+before_action :set_show_translation_keys
 ```
 
 ## Usage

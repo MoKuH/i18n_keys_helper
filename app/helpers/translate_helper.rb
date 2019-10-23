@@ -26,11 +26,13 @@ module ActionView
   # = Action View Translation Helpers
   module Helpers
     module TranslationHelper
-      def translate(key, options={})
-        translation=super(key, options.merge(raise: true))
+      def _translate(key, options={})
+
+        translation=translate(key, options.merge(raise: true))
+        return translation unless TranslateHelper.is_ok(key,options)
         if  is_trad_array? key
           result=I18n.translate(scope_key_by_partial(key), options,false)
-          result_new=Array.new 
+          result_new=Array.new
           result.each do | value|
             if value.nil?
               result_new.push nil
@@ -46,8 +48,7 @@ module ActionView
         key
       end
 
-
-      alias :t :translate
+      alias :t :_translate
       alias :l :localize
 
       private

@@ -16,9 +16,10 @@ module I18nKeysHelper
     end
     if cookies[:show_keys].to_s!=old_cookie_value
       params_to_return=params.except(:controller, :action, :show_keys)
-      redirect_to "#{request.env['PATH_INFO']}#{params_to_return.any? ? '?' : ''}#{params_to_return.to_query}"
+      redirect_to "#{request.env['PATH_INFO']}#{params_to_return.to_unsafe_h.any? ? '?' : ''}#{params_to_return.to_unsafe_h.to_query}"
     end
   end
+
 
 end
 
